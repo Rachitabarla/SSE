@@ -3,7 +3,7 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from sse_starlette.sse import EventSourceResponse
 
-app = FastAPI(docs_url='/docs')
+app = FastAPI(title= "Server Sent Events", description = " Implementation of SSE using async queue", docs_url='/docs')
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -11,13 +11,13 @@ app.add_middleware(
 
 client_queue = {} # keeps track of the multiple client connections
 
-@app.post('/write')
+@app.post('/write',tags=["Endpoints"])
 async def adding_new_line(new_data: str):
     for each_queue in client_queue.values():
         await each_queue.put(f"{new_data}")
     return {"message":"new line added"}
   
-@app.get('/stream') 
+@app.get('/stream',tags=["Endpoints"]) 
 async def message_stream(request: Request):
     queue = asyncio.Queue()
     client_id = id(queue)
