@@ -2,7 +2,11 @@
 This repo is a working demonstration of how Server Sent Events are implemented using Fastapi.
 
 1. Clone the repository
-2. Open the terminal and use the command to start the server
+2. Install the required libraries
+```bash
+pip install fastapi sse-starlette logging uvicorn
+```
+4. Open the terminal and use the command to start the server
 ```bash
 uvicorn main:app --reload --host 0.0.0.0 --port 5050
 ```
